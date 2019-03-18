@@ -27,8 +27,7 @@ DESC
   spec.authors            = { "Vaisakh" => "vaisakh.kp@cherrylabs.com" }
 
   spec.platform     = :ios, "8.0"
-  spec.source       = { :git => "https://github.com/cherrylabstech/asista-sdk-ios.git" :tag => spec.version.to_s  }
-
+  spec.source       = { :git => "https://github.com/cherrylabstech/asista-sdk-ios.git", :tag => spec.version }
   spec.ios.deployment_target = '8.0'
   spec.swift_version    = '4.2'
   spec.ios.vendored_frameworks = 'AsistaCore.framework'

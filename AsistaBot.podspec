@@ -13,5 +13,5 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "https://github.com/cherrylabstech/asista-sdk-ios.git", :tag => spec.version }
 
   spec.swift_version    = '4.2'
-  spec.ios.vendored_frameworks = 'ChatBot/AsistaBot.framework'
+  spec.ios.vendored_frameworks = 'AsistaBot.framework'
 end

@@ -43,7 +43,7 @@ Add the following code snippet, replacing the placeholders within the square bra
 <key>appSecret</key>
 <string>[appSecret]</string>
 <key>tenantUrl</key>
-<string>[https://example.asista.com]</string>
+<string>[https://yourdomain.asista.com]</string>
 </dict>
 ```
 

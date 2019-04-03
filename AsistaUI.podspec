@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = 'AsistaUI'
-  spec.version      = '1.0.0'
+  spec.version      = '0.4.0'
   spec.summary      = 'An official Asista UI SDK in swift to access asista platform features instantly without deeper coding.'
 
   spec.description      = <<-DESC
@@ -19,10 +19,10 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => 'MIT', :file => 'LICENSE' }
   spec.authors      = 'Cherrylabs'
 
-  spec.platform     = :ios, '11.0'
+  spec.platform     = :ios, '10.0'
   spec.source       = { :git => "https://github.com/cherrylabstech/asista-sdk-ios.git", :tag => spec.version }
 
-  spec.swift_version    = '4.2'
+  spec.swift_version    = '5.0'
 
   spec.vendored_frameworks = 'AsistaSDK/AsistaUI.framework'
   spec.ios.resource_bundle = { 'AsistaUI' => 'AsistaSDK/AsistaUI.framework/*.png' }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'AsistaCore'
-  spec.version      = '0.4.1'
+  spec.version      = '0.4.0'
   spec.summary      = 'Official Asista SDK in Swift to access Asista Platform core feature'
 
   spec.description      = <<-DESC

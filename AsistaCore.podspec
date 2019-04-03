@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'AsistaCore'
-  spec.version      = '0.4.0'
+  spec.version      = '0.4.1'
   spec.summary      = 'Official Asista SDK in Swift to access Asista Platform core feature'
 
   spec.description      = <<-DESC
@@ -19,7 +19,7 @@ Pod::Spec.new do |spec|
   spec.authors      = 'Cherrylabs'
 
   spec.platform     = :ios, '8.0'
-  spec.source       = { :git => "https://github.com/cherrylabstech/asista-sdk-ios.git", :tag => spec.version }
+  spec.source       = { :git => 'https://github.com/cherrylabstech/asista-sdk-ios.git', :tag => spec.version }
 
   spec.swift_version    = '5.0'
   spec.ios.deployment_target = '8.0'

@@ -23,6 +23,7 @@ Pod::Spec.new do |spec|
 
   spec.swift_version    = '5.0'
   spec.ios.deployment_target = '8.0'
-
+  
+  spec.static_framework = true
   spec.ios.vendored_frameworks = 'AsistaSupport/AsistaCore.framework'
 end

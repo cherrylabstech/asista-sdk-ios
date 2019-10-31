@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
     * Knowledge Base Articles
   DESC
 
-  spec.homepage     = 'https://asista.com'
+  spec.homepage     = 'https://asista.com/developer'
 
   spec.license      = { :type => 'MIT', :file => 'LICENSE' }
   spec.authors      = 'Cherrylabs'
@@ -24,5 +24,5 @@ Pod::Spec.new do |spec|
   spec.swift_version    = '4.2'
   spec.ios.deployment_target = '8.0'
 
-  spec.ios.vendored_frameworks = 'AsistaSDK/AsistaCore.framework'
+  spec.ios.vendored_frameworks = 'AsistaSupport/AsistaCore.framework'
 end

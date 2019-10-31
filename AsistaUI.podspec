@@ -24,8 +24,8 @@ Pod::Spec.new do |spec|
 
   spec.swift_version    = '4.2'
 
-  spec.vendored_frameworks = 'AsistaSDK/AsistaUI.framework'
-  spec.ios.resource_bundle = { 'AsistaUI' => 'AsistaSDK/AsistaUI.framework/*.png' }
+  spec.vendored_frameworks = 'AsistaSupport/AsistaUI.framework'
+  spec.ios.resource_bundle = { 'AsistaUI' => 'AsistaSupport/AsistaUI.framework/*.png' }
 
   spec.dependency 'AsistaCore'
   spec.dependency 'Eureka'

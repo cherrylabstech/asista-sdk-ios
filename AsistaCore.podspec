@@ -21,7 +21,7 @@ Pod::Spec.new do |spec|
   spec.platform     = :ios, '8.0'
   spec.source       = { :git => 'https://github.com/cherrylabstech/asista-sdk-ios.git', :tag => spec.version }
 
-  spec.swift_version    = '4.2'
+  spec.swift_version    = '5.0'
   spec.ios.deployment_target = '8.0'
 
   spec.ios.vendored_frameworks = 'AsistaSupport/AsistaCore.framework'

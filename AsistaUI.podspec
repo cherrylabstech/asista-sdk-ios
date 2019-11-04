@@ -20,9 +20,9 @@ Pod::Spec.new do |spec|
   spec.authors      = 'Cherrylabs'
 
   spec.platform     = :ios, '10.0'
-  spec.source       = { :git => "https://github.com/cherrylabstech/asista-sdk-ios.git", :tag => spec.version }
+  spec.source       = { :git => 'https://github.com/cherrylabstech/asista-sdk-ios.git', :tag => spec.version }
 
-  spec.swift_version    = '5.0'
+  spec.swift_version = '5.0'
 
   spec.static_framework = true
   spec.vendored_frameworks = 'AsistaSupport/AsistaUI.framework'

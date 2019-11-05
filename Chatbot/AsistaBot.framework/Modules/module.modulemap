@@ -1,4 +1,0 @@
-framework module AsistaBot {
-  header "AsistaBot-Swift.h"
-  requires objc
-}

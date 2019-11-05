@@ -18,12 +18,11 @@ Pod::Spec.new do |spec|
   spec.authors      = { 'Cherrylabs' => 'vaisakh.kp@cherrylabs.com' }
   spec.documentation_url = 'https://asista.com/developer/docs/asista-sdk-for-ios'
   
-  spec.source       = { :git => 'https://github.com/cherrylabstech/asista-sdk-ios.git', :tag => spec.version }
+  spec.source       = { :git => 'https://github.com/cherrylabstech/asista-sdk-ios.git', :tag => "0.3.1" }
 
   spec.swift_versions = '4.2'
   spec.ios.deployment_target = '8.0'
   
   spec.static_framework = true
-  spec.preserve_paths = 'Frameworks/AsistaCore.framework'
   spec.vendored_frameworks = 'AsistaSupport/AsistaCore.framework'
 end

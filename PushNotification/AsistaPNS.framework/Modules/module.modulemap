@@ -1,0 +1,4 @@
+framework module AsistaPNS {
+  header "AsistaPNS-Swift.h"
+  requires objc
+}

@@ -14,16 +14,16 @@ Pod::Spec.new do |spec|
   DESC
 
   spec.homepage     = 'https://asista.com/developer'
-  spec.license      = { :type => 'MIT', :file => 'LICENSE' }
+  spec.license      = { :type => 'MIT', :file => "asista-sdk-ios-#{spec.version}/LICENSE" }
   spec.authors      = { 'Cherrylabs' => 'vaisakh.kp@cherrylabs.com' }
   spec.documentation_url = 'https://asista.com/developer/docs/asista-sdk-for-ios'
   
-  spec.source       = { :git => 'https://github.com/cherrylabstech/asista-sdk-ios.git', :tag => spec.version }
+  spec.source = { :http => "https://github.com/cherrylabstech/asista-sdk-ios/archive/#{spec.version}.zip" }
 
   spec.swift_versions = ['5.0', '5.1']
   spec.ios.deployment_target = '8.0'
   
   spec.static_framework = true
-  spec.preserve_paths = 'Frameworks/AsistaCore.framework'
-  spec.vendored_frameworks = 'AsistaSupport/AsistaCore.framework'
+  # spec.preserve_paths = 'Frameworks/AsistaCore.framework'
+  spec.ios.vendored_frameworks = "asista-sdk-ios-#{spec.version}/AsistaSupport/AsistaCore.framework"
 end

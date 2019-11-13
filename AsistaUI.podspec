@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = 'AsistaUI'
-  spec.version      = '1.0.02'
+  spec.version      = '1.0.03'
   spec.summary      = 'An official Asista UI SDK in swift to access asista platform features instantly without deeper coding.'
 
   spec.description      = <<-DESC
@@ -33,4 +33,5 @@ Pod::Spec.new do |spec|
   spec.dependency 'SwiftMessages'
   spec.dependency 'Kingfisher'
   spec.dependency 'IHProgressHUD'
+  spec.dependency 'ListPlaceholder'
 end

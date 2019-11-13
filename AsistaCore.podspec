@@ -24,6 +24,5 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '8.0'
   
   spec.static_framework = true
-  # spec.preserve_paths = 'Frameworks/AsistaCore.framework'
   spec.ios.vendored_frameworks = "asista-sdk-ios-#{spec.version}/AsistaSupport/AsistaCore.framework"
 end

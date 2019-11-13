@@ -29,7 +29,7 @@ pod 'AsistaUI'
 
 ### SDK Configuration
 
-To begin making calls to the Asista API, you need to register an application on the [Asista Developer Site](https://asista.com) and get credentials for your app.
+To begin making calls to the Asista API, you need to register an application on the [Asista Developer Site](https://asista.com/developer) and get credentials for your app.
 
 Then, configure your Xcode with information for the Asista SDK. Locate the **Info.plist** file for your application. Right-click this file and select **Open As > Source Code**
 

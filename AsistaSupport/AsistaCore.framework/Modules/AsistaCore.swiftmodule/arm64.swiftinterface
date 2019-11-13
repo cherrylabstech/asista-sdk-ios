@@ -1,0 +1,1525 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target arm64-apple-ios8.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name AsistaCore
+import Dispatch
+import Foundation
+import MobileCoreServices
+import Swift
+import SystemConfiguration
+public class PriorityService {
+  public func fetchPriorityList(completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.Priority], AsistaCore.AsistaError>) -> Swift.Void)
+  public func updateTicketPriority(roleId: Swift.Int = 1, parameters: Swift.Dictionary<Swift.String, Swift.Int>, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.MsgResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  @objc deinit
+}
+public class UserProfileService {
+  public func fetchTheme(completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.Theme, AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchProfile(completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.Profile, AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchDetailedProfile(completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.ProfileDetail, AsistaCore.AsistaError>) -> Swift.Void)
+  public func updateProfile(parameters: Swift.Dictionary<Swift.String, Any>, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.ProfileResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchTimezoneList(completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.Zone], AsistaCore.AsistaError>) -> Swift.Void)
+  public func updateTimezone(zoneId: Swift.Int, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.MsgResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  public func updateProfileImage(url: Foundation.URL, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.MsgResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  @objc deinit
+}
+public protocol URLConvertible {
+  func asURL() throws -> Foundation.URL
+}
+extension String : AsistaCore.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+extension URL : AsistaCore.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+extension URLComponents : AsistaCore.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+public protocol URLRequestConvertible {
+  func asURLRequest() throws -> Foundation.URLRequest
+}
+extension URLRequestConvertible {
+  public var urlRequest: Foundation.URLRequest? {
+    get
+  }
+}
+extension URLRequest : AsistaCore.URLRequestConvertible {
+  public func asURLRequest() throws -> Foundation.URLRequest
+}
+extension URLRequest {
+  public init(url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod, headers: AsistaCore.HTTPHeaders? = nil) throws
+}
+@discardableResult
+public func request(_ url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .get, parameters: AsistaCore.Parameters? = nil, encoding: AsistaCore.ParameterEncoding = URLEncoding.default, headers: AsistaCore.HTTPHeaders? = nil) -> AsistaCore.DataRequest
+@discardableResult
+public func request(_ urlRequest: AsistaCore.URLRequestConvertible) -> AsistaCore.DataRequest
+@discardableResult
+public func download(_ url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .get, parameters: AsistaCore.Parameters? = nil, encoding: AsistaCore.ParameterEncoding = URLEncoding.default, headers: AsistaCore.HTTPHeaders? = nil, to destination: AsistaCore.DownloadRequest.DownloadFileDestination? = nil) -> AsistaCore.DownloadRequest
+@discardableResult
+public func download(_ urlRequest: AsistaCore.URLRequestConvertible, to destination: AsistaCore.DownloadRequest.DownloadFileDestination? = nil) -> AsistaCore.DownloadRequest
+@discardableResult
+public func download(resumingWith resumeData: Foundation.Data, to destination: AsistaCore.DownloadRequest.DownloadFileDestination? = nil) -> AsistaCore.DownloadRequest
+@discardableResult
+public func upload(_ fileURL: Foundation.URL, to url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .post, headers: AsistaCore.HTTPHeaders? = nil) -> AsistaCore.UploadRequest
+@discardableResult
+public func upload(_ fileURL: Foundation.URL, with urlRequest: AsistaCore.URLRequestConvertible) -> AsistaCore.UploadRequest
+@discardableResult
+public func upload(_ data: Foundation.Data, to url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .post, headers: AsistaCore.HTTPHeaders? = nil) -> AsistaCore.UploadRequest
+@discardableResult
+public func upload(_ data: Foundation.Data, with urlRequest: AsistaCore.URLRequestConvertible) -> AsistaCore.UploadRequest
+@discardableResult
+public func upload(_ stream: Foundation.InputStream, to url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .post, headers: AsistaCore.HTTPHeaders? = nil) -> AsistaCore.UploadRequest
+@discardableResult
+public func upload(_ stream: Foundation.InputStream, with urlRequest: AsistaCore.URLRequestConvertible) -> AsistaCore.UploadRequest
+public func upload(multipartFormData: @escaping (AsistaCore.MultipartFormData) -> Swift.Void, usingThreshold encodingMemoryThreshold: Swift.UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold, to url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .post, headers: AsistaCore.HTTPHeaders? = nil, encodingCompletion: ((AsistaCore.SessionManager.MultipartFormDataEncodingResult) -> Swift.Void)?)
+public func upload(multipartFormData: @escaping (AsistaCore.MultipartFormData) -> Swift.Void, usingThreshold encodingMemoryThreshold: Swift.UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold, with urlRequest: AsistaCore.URLRequestConvertible, encodingCompletion: ((AsistaCore.SessionManager.MultipartFormDataEncodingResult) -> Swift.Void)?)
+@available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+@discardableResult
+public func stream(withHostName hostName: Swift.String, port: Swift.Int) -> AsistaCore.StreamRequest
+@available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+@discardableResult
+public func stream(with netService: Foundation.NetService) -> AsistaCore.StreamRequest
+public class AsistaApiClient {
+  public func getKbService() -> AsistaCore.KbService
+  public func getAuthService() -> AsistaCore.AuthService
+  public func getTicketService() -> AsistaCore.TicketService
+  public func getUserService() -> AsistaCore.UserProfileService
+  public func getAssetService() -> AsistaCore.AssetService
+  public func getAttachmentService() -> AsistaCore.AttachmentService
+  public func getStateService() -> AsistaCore.StateService
+  public func getPriorityService() -> AsistaCore.PriorityService
+  public init()
+  @objc deinit
+}
+public struct TicketCount : Swift.Codable {
+  public let requestCount: Swift.Int
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct Token : Swift.Codable {
+  public let accessToken: Swift.String?, tokenType: Swift.String?, refreshToken: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public enum ResultModel<T, E> {
+  case success(T)
+  case failed(E)
+}
+extension String {
+  public func deletePrefix(_ prefix: Swift.String) -> Swift.String
+  public func getMimeType() -> Swift.String
+}
+public struct PasswordResetResponse : Swift.Codable {
+  public let tempId: Swift.String
+  public let response: Swift.String
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct TicketList : Swift.Codable {
+  public let header: AsistaCore.TicketHeader
+  public var payload: [AsistaCore.TicketPayload]
+  public var ticketCount: Swift.Int?
+  public init()
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct TicketHeader : Swift.Codable {
+  public let priority: Swift.String?
+  public let state: Swift.String?
+  public let source: Swift.String?
+  public let subject: Swift.String?
+  public let requestNo: Swift.String?
+  public let company: Swift.String?
+  public let createdTime: Swift.String?
+  public let modifiedTime: Swift.String?
+  public let assets: Swift.String?
+  public let technician: Swift.String?
+  public init()
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct TicketPayload : Swift.Codable {
+  public let haveChildTicktes: Swift.Bool?
+  public let read: Swift.Bool?
+  public let company: Swift.String?
+  public let priority: Swift.String?
+  public let state: Swift.String?
+  public let createdBy: Swift.String?
+  public let subject: Swift.String?
+  public let source: Swift.Int?
+  public let tech: Swift.String?
+  public let requestSlaTagFriendlyName: Swift.String?
+  public let requestId: Swift.Int?
+  public let created: Swift.String?
+  public let requestNo: Swift.String?
+  public let createTime: Swift.Int?
+  public let priorityId: Swift.Int?
+  public let requestSlaTagName: Swift.String?
+  public let requestSlaTagColor: Swift.String?
+  public let modifiedTime: Swift.Int?
+  public let requestSlaTagId: Swift.Int?
+  public let stateId: Swift.Int?
+  public let notesTransfer: AsistaCore.NotesTransfer?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct NotesTransfer : Swift.Codable {
+  public let userID: Swift.Int?
+  public let createTime: Swift.String?
+  public let noteID: Swift.Int?
+  public let contentType: Swift.String?
+  public let subject: Swift.String?
+  public let attachment: [AsistaCore.Attachment]
+  public let image: Swift.String?
+  public let technicianID: Swift.String?
+  public let isPrivate: Swift.Bool?
+  public let requestID: Swift.String?
+  public let status: Swift.String?
+  public let severity: Swift.String?
+  public let statusID: Swift.Int
+  public let severityID: Swift.Int
+  public let message: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public class AsistaCore {
+  public static var tenantURL: Swift.String {
+    get
+  }
+  public static var userId: Swift.Int {
+    get
+  }
+  public static var roleId: Swift.Int {
+    get
+  }
+  public static var passwordRegx: Swift.String {
+    get
+  }
+  public static var isSLA: Swift.Bool {
+    get
+  }
+  public static var isPickTicket: Swift.Bool {
+    get
+  }
+  public static var isRca: Swift.Bool {
+    get
+  }
+  public static var rcTabName: Swift.String {
+    get
+  }
+  public static var passwordPolicy: Swift.String {
+    get
+  }
+  public static var timeZoneOffset: Swift.Double {
+    get
+  }
+  public static var attachmentSize: Swift.Int {
+    get
+  }
+  public static var attachmentTypes: [Swift.String] {
+    get
+  }
+  public static func initialize(tenantUrl: Swift.String? = nil, appKey: Swift.String? = nil, appSecret: Swift.String? = nil)
+  public static func getInstance() throws -> AsistaCore.AsistaApiClient
+  @objc deinit
+}
+public struct KBArticle : Swift.Codable {
+  public let id: Swift.Int
+  public let topic: Swift.String
+  public let articleCount: Swift.Int
+  public let articles: [AsistaCore.Article]
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct Article : Swift.Codable {
+  public let id: Swift.Int
+  public let subject: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+open class MultipartFormData {
+  open var contentType: Swift.String {
+    get
+    set(value)
+  }
+  public var contentLength: Swift.UInt64 {
+    get
+  }
+  public var boundary: Swift.String
+  public init()
+  public func append(_ data: Foundation.Data, withName name: Swift.String)
+  public func append(_ data: Foundation.Data, withName name: Swift.String, mimeType: Swift.String)
+  public func append(_ data: Foundation.Data, withName name: Swift.String, fileName: Swift.String, mimeType: Swift.String)
+  public func append(_ fileURL: Foundation.URL, withName name: Swift.String)
+  public func append(_ fileURL: Foundation.URL, withName name: Swift.String, fileName: Swift.String, mimeType: Swift.String)
+  public func append(_ stream: Foundation.InputStream, withLength length: Swift.UInt64, name: Swift.String, fileName: Swift.String, mimeType: Swift.String)
+  public func append(_ stream: Foundation.InputStream, withLength length: Swift.UInt64, headers: AsistaCore.HTTPHeaders)
+  public func encode() throws -> Foundation.Data
+  public func writeEncodedData(to fileURL: Foundation.URL) throws
+  @objc deinit
+}
+@objc open class TaskDelegate : ObjectiveC.NSObject {
+  final public let queue: Foundation.OperationQueue
+  public var data: Foundation.Data? {
+    get
+  }
+  public var error: Swift.Error?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc open class SessionDelegate : ObjectiveC.NSObject {
+  open var sessionDidBecomeInvalidWithError: ((Foundation.URLSession, Swift.Error?) -> Swift.Void)?
+  open var sessionDidReceiveChallenge: ((Foundation.URLSession, Foundation.URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?))?
+  open var sessionDidReceiveChallengeWithCompletion: ((Foundation.URLSession, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)?
+  open var sessionDidFinishEventsForBackgroundURLSession: ((Foundation.URLSession) -> Swift.Void)?
+  open var taskWillPerformHTTPRedirection: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.HTTPURLResponse, Foundation.URLRequest) -> Foundation.URLRequest?)?
+  open var taskWillPerformHTTPRedirectionWithCompletion: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.HTTPURLResponse, Foundation.URLRequest, @escaping (Foundation.URLRequest?) -> Swift.Void) -> Swift.Void)?
+  open var taskDidReceiveChallenge: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?))?
+  open var taskDidReceiveChallengeWithCompletion: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)?
+  open var taskNeedNewBodyStream: ((Foundation.URLSession, Foundation.URLSessionTask) -> Foundation.InputStream?)?
+  open var taskNeedNewBodyStreamWithCompletion: ((Foundation.URLSession, Foundation.URLSessionTask, @escaping (Foundation.InputStream?) -> Swift.Void) -> Swift.Void)?
+  open var taskDidSendBodyData: ((Foundation.URLSession, Foundation.URLSessionTask, Swift.Int64, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  open var taskDidComplete: ((Foundation.URLSession, Foundation.URLSessionTask, Swift.Error?) -> Swift.Void)?
+  open var dataTaskDidReceiveResponse: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.URLResponse) -> Foundation.URLSession.ResponseDisposition)?
+  open var dataTaskDidReceiveResponseWithCompletion: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.URLResponse, @escaping (Foundation.URLSession.ResponseDisposition) -> Swift.Void) -> Swift.Void)?
+  open var dataTaskDidBecomeDownloadTask: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.URLSessionDownloadTask) -> Swift.Void)?
+  open var dataTaskDidReceiveData: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.Data) -> Swift.Void)?
+  open var dataTaskWillCacheResponse: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.CachedURLResponse) -> Foundation.CachedURLResponse?)?
+  open var dataTaskWillCacheResponseWithCompletion: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.CachedURLResponse, @escaping (Foundation.CachedURLResponse?) -> Swift.Void) -> Swift.Void)?
+  open var downloadTaskDidFinishDownloadingToURL: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Foundation.URL) -> Swift.Void)?
+  open var downloadTaskDidWriteData: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Swift.Int64, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  open var downloadTaskDidResumeAtOffset: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  open var streamTaskReadClosed: ((Foundation.URLSession, Foundation.URLSessionStreamTask) -> Swift.Void)? {
+    get
+    set(newValue)
+  }
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  open var streamTaskWriteClosed: ((Foundation.URLSession, Foundation.URLSessionStreamTask) -> Swift.Void)? {
+    get
+    set(newValue)
+  }
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  open var streamTaskBetterRouteDiscovered: ((Foundation.URLSession, Foundation.URLSessionStreamTask) -> Swift.Void)? {
+    get
+    set(newValue)
+  }
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  open var streamTaskDidBecomeInputAndOutputStreams: ((Foundation.URLSession, Foundation.URLSessionStreamTask, Foundation.InputStream, Foundation.OutputStream) -> Swift.Void)? {
+    get
+    set(newValue)
+  }
+  open subscript(task: Foundation.URLSessionTask) -> AsistaCore.Request? {
+    get
+    set(newValue)
+  }
+  @objc override dynamic public init()
+  @objc override dynamic open func responds(to selector: ObjectiveC.Selector) -> Swift.Bool
+  @objc deinit
+}
+extension SessionDelegate : Foundation.URLSessionDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, didBecomeInvalidWithError error: Swift.Error?)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc dynamic open func urlSessionDidFinishEvents(forBackgroundURLSession session: Foundation.URLSession)
+}
+extension SessionDelegate : Foundation.URLSessionTaskDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest, completionHandler: @escaping (Foundation.URLRequest?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, needNewBodyStream completionHandler: @escaping (Foundation.InputStream?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+  @available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+  @objc(URLSession:task:didFinishCollectingMetrics:) dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didFinishCollecting metrics: Foundation.URLSessionTaskMetrics)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: Swift.Error?)
+}
+extension SessionDelegate : Foundation.URLSessionDataDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive response: Foundation.URLResponse, completionHandler: @escaping (Foundation.URLSession.ResponseDisposition) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didBecome downloadTask: Foundation.URLSessionDownloadTask)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, willCacheResponse proposedResponse: Foundation.CachedURLResponse, completionHandler: @escaping (Foundation.CachedURLResponse?) -> Swift.Void)
+}
+extension SessionDelegate : Foundation.URLSessionDownloadDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didFinishDownloadingTo location: Foundation.URL)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didWriteData bytesWritten: Swift.Int64, totalBytesWritten: Swift.Int64, totalBytesExpectedToWrite: Swift.Int64)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didResumeAtOffset fileOffset: Swift.Int64, expectedTotalBytes: Swift.Int64)
+}
+@available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+extension SessionDelegate : Foundation.URLSessionStreamDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, readClosedFor streamTask: Foundation.URLSessionStreamTask)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, writeClosedFor streamTask: Foundation.URLSessionStreamTask)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, betterRouteDiscoveredFor streamTask: Foundation.URLSessionStreamTask)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, streamTask: Foundation.URLSessionStreamTask, didBecome inputStream: Foundation.InputStream, outputStream: Foundation.OutputStream)
+}
+open class ServerTrustPolicyManager {
+  final public let policies: [Swift.String : AsistaCore.ServerTrustPolicy]
+  public init(policies: [Swift.String : AsistaCore.ServerTrustPolicy])
+  open func serverTrustPolicy(forHost host: Swift.String) -> AsistaCore.ServerTrustPolicy?
+  @objc deinit
+}
+public enum ServerTrustPolicy {
+  case performDefaultEvaluation(validateHost: Swift.Bool)
+  case performRevokedEvaluation(validateHost: Swift.Bool, revocationFlags: CoreFoundation.CFOptionFlags)
+  case pinCertificates(certificates: [Security.SecCertificate], validateCertificateChain: Swift.Bool, validateHost: Swift.Bool)
+  case pinPublicKeys(publicKeys: [Security.SecKey], validateCertificateChain: Swift.Bool, validateHost: Swift.Bool)
+  case disableEvaluation
+  case customEvaluation((Security.SecTrust, Swift.String) -> Swift.Bool)
+  public static func certificates(in bundle: Foundation.Bundle = Bundle.main) -> [Security.SecCertificate]
+  public static func publicKeys(in bundle: Foundation.Bundle = Bundle.main) -> [Security.SecKey]
+  public func evaluate(_ serverTrust: Security.SecTrust, forHost host: Swift.String) -> Swift.Bool
+}
+public struct DefaultDataResponse {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let data: Foundation.Data?
+  public let error: Swift.Error?
+  public let timeline: AsistaCore.Timeline
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?, timeline: AsistaCore.Timeline = Timeline(), metrics: Swift.AnyObject? = nil)
+}
+public struct DataResponse<Value> {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let data: Foundation.Data?
+  public let result: AsistaCore.Result<Value>
+  public let timeline: AsistaCore.Timeline
+  public var value: Value? {
+    get
+  }
+  public var error: Swift.Error? {
+    get
+  }
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, result: AsistaCore.Result<Value>, timeline: AsistaCore.Timeline = Timeline())
+}
+extension DataResponse : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension DataResponse {
+  public func map<T>(_ transform: (Value) -> T) -> AsistaCore.DataResponse<T>
+  public func flatMap<T>(_ transform: (Value) throws -> T) -> AsistaCore.DataResponse<T>
+  public func mapError<E>(_ transform: (Swift.Error) -> E) -> AsistaCore.DataResponse<Value> where E : Swift.Error
+  public func flatMapError<E>(_ transform: (Swift.Error) throws -> E) -> AsistaCore.DataResponse<Value> where E : Swift.Error
+}
+public struct DefaultDownloadResponse {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let temporaryURL: Foundation.URL?
+  public let destinationURL: Foundation.URL?
+  public let resumeData: Foundation.Data?
+  public let error: Swift.Error?
+  public let timeline: AsistaCore.Timeline
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, temporaryURL: Foundation.URL?, destinationURL: Foundation.URL?, resumeData: Foundation.Data?, error: Swift.Error?, timeline: AsistaCore.Timeline = Timeline(), metrics: Swift.AnyObject? = nil)
+}
+public struct DownloadResponse<Value> {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let temporaryURL: Foundation.URL?
+  public let destinationURL: Foundation.URL?
+  public let resumeData: Foundation.Data?
+  public let result: AsistaCore.Result<Value>
+  public let timeline: AsistaCore.Timeline
+  public var value: Value? {
+    get
+  }
+  public var error: Swift.Error? {
+    get
+  }
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, temporaryURL: Foundation.URL?, destinationURL: Foundation.URL?, resumeData: Foundation.Data?, result: AsistaCore.Result<Value>, timeline: AsistaCore.Timeline = Timeline())
+}
+extension DownloadResponse : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension DownloadResponse {
+  public func map<T>(_ transform: (Value) -> T) -> AsistaCore.DownloadResponse<T>
+  public func flatMap<T>(_ transform: (Value) throws -> T) -> AsistaCore.DownloadResponse<T>
+  public func mapError<E>(_ transform: (Swift.Error) -> E) -> AsistaCore.DownloadResponse<Value> where E : Swift.Error
+  public func flatMapError<E>(_ transform: (Swift.Error) throws -> E) -> AsistaCore.DownloadResponse<Value> where E : Swift.Error
+}
+@available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+extension DefaultDataResponse {
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+}
+@available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+extension DataResponse {
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+}
+@available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+extension DefaultDownloadResponse {
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+}
+@available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+extension DownloadResponse {
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+}
+public struct AssetCategory : Swift.Codable {
+  public let id: Swift.Int
+  public let categoryName: Swift.String
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct CreateTicketForm : Swift.Codable {
+  public let agentOnly: Swift.Bool?
+  public let expanded: Swift.Bool?
+  public let fieldData: Swift.String?
+  public let fieldDelete: Swift.Bool?
+  public let fieldDisabled: Swift.Bool
+  public let fieldId: Swift.Int
+  public let fieldLabel: Swift.String
+  public let fieldName: Swift.String?
+  public let fieldOrgName: Swift.String?
+  public let fieldPlaceholder: Swift.String?
+  public let fieldRequired: Swift.Bool
+  public let fieldTitle: Swift.String?
+  public let fieldType: Swift.String?
+  public let fieldTypeId: Swift.Int
+  public let fieldValue: Swift.String?
+  public let fieldOptions: [AsistaCore.FieldOption]?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct FieldOption : Swift.Codable {
+  public let optionTitle: Swift.String
+  public let optionId: Swift.Int
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct Profile : Swift.Codable {
+  public let language: Swift.String?
+  public let userId: Swift.Int?
+  public let tenantTimezoneId: Swift.Int?
+  public let clientTimezoneId: Swift.Int?
+  public let userLevel: Swift.String?
+  public let roleId: Swift.Int?
+  public let timezoneOfset: Swift.Int?
+  public let firstName: Swift.String?
+  public let lastName: Swift.String?
+  public let role: Swift.String?
+  public let phone: Swift.String?
+  public let email: Swift.String?
+  public let timezone: Swift.String?
+  public let notificationEmail: Swift.String?
+  public let plan: Swift.Int?
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct AssetCount : Swift.Codable {
+  public let assetCount: Swift.Int
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public class AttachmentService {
+  public func fetchAttachmentProperties(completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.AttachmentProperties, AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchImage(url: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<Foundation.Data, AsistaCore.AsistaError>) -> Swift.Void)
+  public func downloadFile(fileUrl: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<Foundation.URL, AsistaCore.AsistaError>) -> Swift.Void)
+  @objc deinit
+}
+public struct AttachmentProperties : Swift.Codable, Swift.Equatable {
+  public let fileSize: Swift.Int
+  public let fileType: [Swift.String]
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func == (a: AsistaCore.AttachmentProperties, b: AsistaCore.AttachmentProperties) -> Swift.Bool
+}
+public struct AssetDetail : Swift.Codable {
+  public let header: AsistaCore.AssetDetailHeader
+  public let payload: AsistaCore.AssetDetailPayload
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct AssetDetailHeader : Swift.Codable {
+  public let state: Swift.String
+  public let startDate: Swift.String
+  public let endDate: Swift.String
+  public let model: Swift.String
+  public let item: Swift.String
+  public let category: Swift.String
+  public let itemDec: Swift.String?
+  public let defaultGrouped: Swift.Bool
+  public let team: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct AssetDetailPayload : Swift.Codable {
+  public let state: Swift.String?
+  public let startDate: Swift.Double?
+  public let endDate: Swift.Double?
+  public let customFields: [AsistaCore.CustomField]
+  public let model: Swift.String?
+  public let item: Swift.String?
+  public let category: Swift.String?
+  public let itemDec: Swift.String?
+  public let itemId: Swift.Int?
+  public let team: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct CustomField : Swift.Codable {
+  public let name: Swift.String
+  public let type: Swift.String
+  public let data: Swift.String
+  public let label: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct KBArticleSearch : Swift.Codable {
+  public let url: Swift.String
+  public let articleId: Swift.Int
+  public let subject: Swift.String
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public protocol RequestAdapter {
+  func adapt(_ urlRequest: Foundation.URLRequest) throws -> Foundation.URLRequest
+}
+public typealias RequestRetryCompletion = (Swift.Bool, Foundation.TimeInterval) -> Swift.Void
+public protocol RequestRetrier {
+  func should(_ manager: AsistaCore.SessionManager, retry request: AsistaCore.Request, with error: Swift.Error, completion: @escaping AsistaCore.RequestRetryCompletion)
+}
+public typealias HTTPHeaders = [Swift.String : Swift.String]
+open class Request {
+  public typealias ProgressHandler = (Foundation.Progress) -> Swift.Void
+  open var delegate: AsistaCore.TaskDelegate {
+    get
+  }
+  open var task: Foundation.URLSessionTask? {
+    get
+  }
+  final public let session: Foundation.URLSession
+  open var request: Foundation.URLRequest? {
+    get
+  }
+  open var response: Foundation.HTTPURLResponse? {
+    get
+  }
+  open var retryCount: Swift.UInt {
+    get
+    }
+  @discardableResult
+  open func authenticate(user: Swift.String, password: Swift.String, persistence: Foundation.URLCredential.Persistence = .forSession) -> Self
+  @discardableResult
+  open func authenticate(usingCredential credential: Foundation.URLCredential) -> Self
+  open class func authorizationHeader(user: Swift.String, password: Swift.String) -> (key: Swift.String, value: Swift.String)?
+  open func resume()
+  open func suspend()
+  open func cancel()
+  @objc deinit
+}
+extension Request : Swift.CustomStringConvertible {
+  open var description: Swift.String {
+    get
+  }
+}
+extension Request : Swift.CustomDebugStringConvertible {
+  open var debugDescription: Swift.String {
+    get
+  }
+}
+open class DataRequest : AsistaCore.Request {
+  override open var request: Foundation.URLRequest? {
+    get
+  }
+  open var progress: Foundation.Progress {
+    get
+  }
+  @discardableResult
+  open func stream(closure: ((Foundation.Data) -> Swift.Void)? = nil) -> Self
+  @discardableResult
+  open func downloadProgress(queue: Dispatch.DispatchQueue = DispatchQueue.main, closure: @escaping AsistaCore.DataRequest.ProgressHandler) -> Self
+  @objc deinit
+}
+open class DownloadRequest : AsistaCore.Request {
+  public struct DownloadOptions : Swift.OptionSet {
+    public let rawValue: Swift.UInt
+    public static var createIntermediateDirectories: AsistaCore.DownloadRequest.DownloadOptions
+    public static var removePreviousFile: AsistaCore.DownloadRequest.DownloadOptions
+    public init(rawValue: Swift.UInt)
+    public typealias Element = AsistaCore.DownloadRequest.DownloadOptions
+    public typealias ArrayLiteralElement = AsistaCore.DownloadRequest.DownloadOptions
+    public typealias RawValue = Swift.UInt
+  }
+  public typealias DownloadFileDestination = (Foundation.URL, Foundation.HTTPURLResponse) -> (destinationURL: Foundation.URL, options: AsistaCore.DownloadRequest.DownloadOptions)
+  override open var request: Foundation.URLRequest? {
+    get
+  }
+  open var resumeData: Foundation.Data? {
+    get
+  }
+  open var progress: Foundation.Progress {
+    get
+  }
+  override open func cancel()
+  @discardableResult
+  open func downloadProgress(queue: Dispatch.DispatchQueue = DispatchQueue.main, closure: @escaping AsistaCore.DownloadRequest.ProgressHandler) -> Self
+  open class func suggestedDownloadDestination(for directory: Foundation.FileManager.SearchPathDirectory = .documentDirectory, in domain: Foundation.FileManager.SearchPathDomainMask = .userDomainMask) -> AsistaCore.DownloadRequest.DownloadFileDestination
+  @objc deinit
+}
+open class UploadRequest : AsistaCore.DataRequest {
+  override open var request: Foundation.URLRequest? {
+    get
+  }
+  open var uploadProgress: Foundation.Progress {
+    get
+  }
+  @discardableResult
+  open func uploadProgress(queue: Dispatch.DispatchQueue = DispatchQueue.main, closure: @escaping AsistaCore.UploadRequest.ProgressHandler) -> Self
+  @objc deinit
+}
+@available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+open class StreamRequest : AsistaCore.Request {
+  @objc deinit
+}
+open class NetworkReachabilityManager {
+  public enum NetworkReachabilityStatus {
+    case unknown
+    case notReachable
+    case reachable(AsistaCore.NetworkReachabilityManager.ConnectionType)
+  }
+  public enum ConnectionType {
+    case ethernetOrWiFi
+    case wwan
+    public static func == (a: AsistaCore.NetworkReachabilityManager.ConnectionType, b: AsistaCore.NetworkReachabilityManager.ConnectionType) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public typealias Listener = (AsistaCore.NetworkReachabilityManager.NetworkReachabilityStatus) -> Swift.Void
+  open var isReachable: Swift.Bool {
+    get
+  }
+  open var isReachableOnWWAN: Swift.Bool {
+    get
+  }
+  open var isReachableOnEthernetOrWiFi: Swift.Bool {
+    get
+  }
+  open var networkReachabilityStatus: AsistaCore.NetworkReachabilityManager.NetworkReachabilityStatus {
+    get
+  }
+  open var listenerQueue: Dispatch.DispatchQueue
+  open var listener: AsistaCore.NetworkReachabilityManager.Listener?
+  open var flags: SystemConfiguration.SCNetworkReachabilityFlags? {
+    get
+  }
+  open var previousFlags: SystemConfiguration.SCNetworkReachabilityFlags
+  public convenience init?(host: Swift.String)
+  public convenience init?()
+  @objc deinit
+  @discardableResult
+  open func startListening() -> Swift.Bool
+  open func stopListening()
+}
+extension NetworkReachabilityManager.NetworkReachabilityStatus : Swift.Equatable {
+}
+public func == (lhs: AsistaCore.NetworkReachabilityManager.NetworkReachabilityStatus, rhs: AsistaCore.NetworkReachabilityManager.NetworkReachabilityStatus) -> Swift.Bool
+public struct State : Swift.Codable, Swift.Equatable {
+  public let id: Swift.Int
+  public let userLabel: Swift.String?
+  public let stateType: Swift.String
+  public let noteStatus: Swift.Bool
+  public let stateColor: Swift.String?
+  public let requestColor: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func == (a: AsistaCore.State, b: AsistaCore.State) -> Swift.Bool
+}
+public struct ProfileDetail : Swift.Codable {
+  public let language: Swift.String?
+  public let state: Swift.String?
+  public let country: Swift.String?
+  public let email: Swift.String
+  public let phone: Swift.String
+  public let userID: Swift.Int
+  public let company: Swift.String?
+  public let city: Swift.String?
+  public let notificationEmail: Swift.String
+  public let designation: Swift.String?
+  public let firstName: Swift.String
+  public let lastName: Swift.String?
+  public let addressLine1: Swift.String?
+  public let addressLine2: Swift.String?
+  public let postalCode: Swift.String?
+  public let altPhone: Swift.String?
+  public let timezoneID: Swift.Int
+  public let teamAgent: [Swift.String]?
+  public let teamSupervisor: Swift.String?
+  public let activityDetails: [AsistaCore.ActivityDetail]
+  public let image: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct ActivityDetail : Swift.Codable {
+  public let id: Swift.Int
+  public let clientActivity: Swift.String
+  public let activityTime: Swift.Int
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct FileParameters {
+  public let data: Foundation.Data
+  public let name: Swift.String
+  public let mimeType: Swift.String
+  public init(data: Foundation.Data, name: Swift.String, mimeType: Swift.String)
+}
+public enum Result<Value> {
+  case success(Value)
+  case failure(Swift.Error)
+  public var isSuccess: Swift.Bool {
+    get
+  }
+  public var isFailure: Swift.Bool {
+    get
+  }
+  public var value: Value? {
+    get
+  }
+  public var error: Swift.Error? {
+    get
+  }
+}
+extension Result : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Result : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension Result {
+  public init(value: () throws -> Value)
+  public func unwrap() throws -> Value
+  public func map<T>(_ transform: (Value) -> T) -> AsistaCore.Result<T>
+  public func flatMap<T>(_ transform: (Value) throws -> T) -> AsistaCore.Result<T>
+  public func mapError<T>(_ transform: (Swift.Error) -> T) -> AsistaCore.Result<Value> where T : Swift.Error
+  public func flatMapError<T>(_ transform: (Swift.Error) throws -> T) -> AsistaCore.Result<Value> where T : Swift.Error
+  @discardableResult
+  public func withValue(_ closure: (Value) throws -> Swift.Void) rethrows -> AsistaCore.Result<Value>
+  @discardableResult
+  public func withError(_ closure: (Swift.Error) throws -> Swift.Void) rethrows -> AsistaCore.Result<Value>
+  @discardableResult
+  public func ifSuccess(_ closure: () throws -> Swift.Void) rethrows -> AsistaCore.Result<Value>
+  @discardableResult
+  public func ifFailure(_ closure: () throws -> Swift.Void) rethrows -> AsistaCore.Result<Value>
+}
+public class TicketService {
+  public func fetchUserTickets(state: Swift.Int = -1, roleId: Swift.Int = 1, isOriginated: Swift.Bool = false, from: Swift.Int? = 0, to: Swift.Int? = 20, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.TicketList, AsistaCore.AsistaError>) -> Swift.Void)
+  public func searchTicket(query: Swift.String, isOriginated: Swift.Bool = false, completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.TicketPayload], AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchTicketDetails(requestId: Swift.Int, roleId: Swift.Int = 1, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.TicketDetail, AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchTicketFields(completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.CreateTicketForm], AsistaCore.AsistaError>) -> Swift.Void)
+  public func createTicket(with parameters: Swift.Dictionary<Swift.String, Any>, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.MsgResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchCategoryList(completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.CategoryList], AsistaCore.AsistaError>) -> Swift.Void)
+  public func addComment(with parameters: Swift.Dictionary<Swift.String, Any>, completionHandler: @escaping (AsistaCore.ResultModel<Swift.Bool, AsistaCore.AsistaError>) -> Swift.Void)
+  public func uploadAttachment(url: Foundation.URL, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.UploadResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  public func uploadAttachment(data: Foundation.Data, name: Swift.String, mimeType: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.UploadResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  @objc deinit
+}
+public struct KBTopic : Swift.Codable {
+  public let id: Swift.Int
+  public let topic: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension KBTopic : Swift.Equatable {
+  public static func == (lhs: AsistaCore.KBTopic, rhs: AsistaCore.KBTopic) -> Swift.Bool
+}
+public struct MsgResponse : Swift.Codable {
+  public let message: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct ResponseMsg : Swift.Codable {
+  public let response: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct UploadResponse : Swift.Codable {
+  public let id: Swift.Int
+  public let url: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct Timeline {
+  public let requestStartTime: CoreFoundation.CFAbsoluteTime
+  public let initialResponseTime: CoreFoundation.CFAbsoluteTime
+  public let requestCompletedTime: CoreFoundation.CFAbsoluteTime
+  public let serializationCompletedTime: CoreFoundation.CFAbsoluteTime
+  public let latency: Foundation.TimeInterval
+  public let requestDuration: Foundation.TimeInterval
+  public let serializationDuration: Foundation.TimeInterval
+  public let totalDuration: Foundation.TimeInterval
+  public init(requestStartTime: CoreFoundation.CFAbsoluteTime = 0.0, initialResponseTime: CoreFoundation.CFAbsoluteTime = 0.0, requestCompletedTime: CoreFoundation.CFAbsoluteTime = 0.0, serializationCompletedTime: CoreFoundation.CFAbsoluteTime = 0.0)
+}
+extension Timeline : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Timeline : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public struct CategoryList : Swift.Codable {
+  public let categoryID: Swift.Int
+  public let categoryName: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public class KbService {
+  public func fetchKbTopics(isAuthorized: Swift.Bool = false, completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.KBTopic], AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchKbArticles(with topicId: Swift.Int, isAuthorized: Swift.Bool = false, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.KBArticle, AsistaCore.AsistaError>) -> Swift.Void)
+  public func searchKBArticles(query: Swift.String, isAuthorized: Swift.Bool = false, completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.KBArticleSearch], AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchArticleContents(with articleId: Swift.Int, isAuthorized: Swift.Bool = false, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.KBContent, AsistaCore.AsistaError>) -> Swift.Void)
+  @objc deinit
+}
+public struct Zone : Swift.Codable {
+  public let zoneID: Swift.Int
+  public let zoneName: Swift.String
+  public let countryCode: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct TicketDetail : Swift.Codable {
+  public let header: AsistaCore.TicketDetailHeader
+  public let payload: AsistaCore.TicketDetailPayload
+  public init()
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct TicketDetailHeader : Swift.Codable {
+  public let priority: Swift.String
+  public let state: Swift.String
+  public let source: Swift.String
+  public let subject: Swift.String
+  public let requestNo: Swift.String
+  public let company: Swift.String
+  public let createdTime: Swift.String
+  public let modifiedTime: Swift.String
+  public let assets: Swift.String
+  public let technician: Swift.String
+  public init()
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct TicketDetailPayload : Swift.Codable {
+  public let priority: Swift.String?
+  public let state: Swift.String?
+  public let createdBy: Swift.String?
+  public let categoryId: Swift.Int?
+  public let parentId: Swift.Int?
+  public let createTime: Swift.Int?
+  public let userStateLabel: Swift.String?
+  public let created: Swift.String?
+  public let stateId: Swift.Int?
+  public let childTicket: Swift.Bool?
+  public let requestNo: Swift.String?
+  public let company: Swift.String?
+  public let requestSlaTagFriendlyName: Swift.String?
+  public let team: Swift.String?
+  public let tech: Swift.String?
+  public let notes: [AsistaCore.Note]
+  public let clientId: Swift.Int?
+  public let contentType: Swift.String?
+  public let item: Swift.String?
+  public let subject: Swift.String?
+  public let description: Swift.String?
+  public let source: Swift.Int?
+  public let attachment: [AsistaCore.Attachment]
+  public let category: Swift.String?
+  public let slaId: Swift.Int?
+  public let requestId: Swift.Int?
+  public let sla: Swift.String?
+  public let priorityId: Swift.Int?
+  public let branch: Swift.String?
+  public let requestSlaTagName: Swift.String?
+  public let requestSlaTagColor: Swift.String?
+  public let modifiedTime: Swift.Int?
+  public let customFields: [AsistaCore.DetailCustomField]
+  public let userCategoryLabel: Swift.String?
+  public let isAsisted: Swift.Bool?
+  public let requesterTenant: Swift.String?
+  public let requestSlaTagId: Swift.Int?
+  public let clientEmail: Swift.String?
+  public let userContactInfo: AsistaCore.UserContactInfo?
+  public init()
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct Attachment : Swift.Codable {
+  public let url: Swift.String
+  public let thumbnail: Swift.String?
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct Note : Swift.Codable {
+  public let userId: Swift.Int
+  public let image: Swift.String?
+  public let createTime: Swift.String
+  public let contentType: Swift.String?
+  public let subject: Swift.String?
+  public let attachment: [AsistaCore.Attachment]
+  public let noteId: Swift.Int
+  public let technicianId: Swift.String
+  public let isPrivate: Swift.Bool?
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct DetailCustomField : Swift.Codable {
+  public let name: Swift.String?
+  public let type: Swift.String?
+  public let data: Swift.String?
+  public let label: Swift.String?
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct UserContactInfo : Swift.Codable {
+  public let createdBy: Swift.String
+  public let notificationEmail: Swift.String
+  public let mobile: Swift.String?
+  public let created: Swift.String
+  public let company: Swift.String?
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct AssetType : Swift.Codable, Swift.Equatable {
+  public let id: Swift.Int
+  public let model: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func == (a: AsistaCore.AssetType, b: AsistaCore.AssetType) -> Swift.Bool
+}
+public struct AssetList : Swift.Codable, Swift.Equatable {
+  public let header: AsistaCore.AssetHeader
+  public let payload: [AsistaCore.AssetPayload]
+  public var assetCount: Swift.Int?
+  public init()
+  public static func == (lhs: AsistaCore.AssetList, rhs: AsistaCore.AssetList) -> Swift.Bool
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct AssetHeader : Swift.Codable, Swift.Equatable {
+  public let state: Swift.String?
+  public let itemDec: Swift.String?
+  public let model: Swift.String?
+  public let item: Swift.String?
+  public let category: Swift.String?
+  public let startDate: Swift.String?
+  public let endDate: Swift.String?
+  public let defaultGrouped: Swift.Bool?
+  public let team: Swift.String?
+  public init()
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func == (a: AsistaCore.AssetHeader, b: AsistaCore.AssetHeader) -> Swift.Bool
+}
+public struct AssetPayload : Swift.Codable, Swift.Equatable {
+  public let id: Swift.Int
+  public let state: Swift.String
+  public let itemDec: Swift.String?
+  public let isAnonymous: Swift.Bool
+  public let model: Swift.String, item: Swift.String
+  public let category: Swift.String
+  public let startDate: Swift.Int?, endDate: Swift.Int?
+  public let isAuthenticOnly: Swift.Bool
+  public let companyId: Swift.Int?
+  public let teamId: Swift.Int?
+  public let isSharedTeam: Swift.Bool
+  public let isSharedCompany: Swift.Bool
+  public let team: Swift.String
+  public let friendlyName: Swift.String?
+  public let primaryOwnerEmail: Swift.String?
+  public let primaryOwnerName: Swift.String?
+  public let secondaryOwnerName: Swift.String?
+  public let secondaryOwnerEmail: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func == (a: AsistaCore.AssetPayload, b: AsistaCore.AssetPayload) -> Swift.Bool
+}
+extension Request {
+  public enum ValidationResult {
+    case success
+    case failure(Swift.Error)
+  }
+}
+extension DataRequest {
+  public typealias Validation = (Foundation.URLRequest?, Foundation.HTTPURLResponse, Foundation.Data?) -> AsistaCore.Request.ValidationResult
+  @discardableResult
+  public func validate(_ validation: @escaping AsistaCore.DataRequest.Validation) -> Self
+  @discardableResult
+  public func validate<S>(statusCode acceptableStatusCodes: S) -> Self where S : Swift.Sequence, S.Element == Swift.Int
+  @discardableResult
+  public func validate<S>(contentType acceptableContentTypes: S) -> Self where S : Swift.Sequence, S.Element == Swift.String
+  @discardableResult
+  public func validate() -> Self
+}
+extension DownloadRequest {
+  public typealias Validation = (Foundation.URLRequest?, Foundation.HTTPURLResponse, Foundation.URL?, Foundation.URL?) -> AsistaCore.Request.ValidationResult
+  @discardableResult
+  public func validate(_ validation: @escaping AsistaCore.DownloadRequest.Validation) -> Self
+  @discardableResult
+  public func validate<S>(statusCode acceptableStatusCodes: S) -> Self where S : Swift.Sequence, S.Element == Swift.Int
+  @discardableResult
+  public func validate<S>(contentType acceptableContentTypes: S) -> Self where S : Swift.Sequence, S.Element == Swift.String
+  @discardableResult
+  public func validate() -> Self
+}
+public enum HTTP : Swift.String {
+  case get
+  case post
+  case put
+  case delete
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum HTTPMethod : Swift.String {
+  case options
+  case get
+  case head
+  case post
+  case put
+  case patch
+  case delete
+  case trace
+  case connect
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias Parameters = [Swift.String : Any]
+public protocol ParameterEncoding {
+  func encode(_ urlRequest: AsistaCore.URLRequestConvertible, with parameters: AsistaCore.Parameters?) throws -> Foundation.URLRequest
+}
+public struct URLEncoding : AsistaCore.ParameterEncoding {
+  public enum Destination {
+    case methodDependent
+    case queryString
+    case httpBody
+    public static func == (a: AsistaCore.URLEncoding.Destination, b: AsistaCore.URLEncoding.Destination) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum ArrayEncoding {
+    case brackets
+    case noBrackets
+    public static func == (a: AsistaCore.URLEncoding.ArrayEncoding, b: AsistaCore.URLEncoding.ArrayEncoding) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum BoolEncoding {
+    case numeric
+    case literal
+    public static func == (a: AsistaCore.URLEncoding.BoolEncoding, b: AsistaCore.URLEncoding.BoolEncoding) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public static var `default`: AsistaCore.URLEncoding {
+    get
+  }
+  public static var methodDependent: AsistaCore.URLEncoding {
+    get
+  }
+  public static var queryString: AsistaCore.URLEncoding {
+    get
+  }
+  public static var httpBody: AsistaCore.URLEncoding {
+    get
+  }
+  public let destination: AsistaCore.URLEncoding.Destination
+  public let arrayEncoding: AsistaCore.URLEncoding.ArrayEncoding
+  public let boolEncoding: AsistaCore.URLEncoding.BoolEncoding
+  public init(destination: AsistaCore.URLEncoding.Destination = .methodDependent, arrayEncoding: AsistaCore.URLEncoding.ArrayEncoding = .brackets, boolEncoding: AsistaCore.URLEncoding.BoolEncoding = .numeric)
+  public func encode(_ urlRequest: AsistaCore.URLRequestConvertible, with parameters: AsistaCore.Parameters?) throws -> Foundation.URLRequest
+  public func queryComponents(fromKey key: Swift.String, value: Any) -> [(Swift.String, Swift.String)]
+  public func escape(_ string: Swift.String) -> Swift.String
+}
+public struct JSONEncoding : AsistaCore.ParameterEncoding {
+  public static var `default`: AsistaCore.JSONEncoding {
+    get
+  }
+  public static var prettyPrinted: AsistaCore.JSONEncoding {
+    get
+  }
+  public let options: Foundation.JSONSerialization.WritingOptions
+  public init(options: Foundation.JSONSerialization.WritingOptions = [])
+  public func encode(_ urlRequest: AsistaCore.URLRequestConvertible, with parameters: AsistaCore.Parameters?) throws -> Foundation.URLRequest
+  public func encode(_ urlRequest: AsistaCore.URLRequestConvertible, withJSONObject jsonObject: Any? = nil) throws -> Foundation.URLRequest
+}
+public struct PropertyListEncoding : AsistaCore.ParameterEncoding {
+  public static var `default`: AsistaCore.PropertyListEncoding {
+    get
+  }
+  public static var xml: AsistaCore.PropertyListEncoding {
+    get
+  }
+  public static var binary: AsistaCore.PropertyListEncoding {
+    get
+  }
+  public let format: Foundation.PropertyListSerialization.PropertyListFormat
+  public let options: Foundation.PropertyListSerialization.WriteOptions
+  public init(format: Foundation.PropertyListSerialization.PropertyListFormat = .xml, options: Foundation.PropertyListSerialization.WriteOptions = 0)
+  public func encode(_ urlRequest: AsistaCore.URLRequestConvertible, with parameters: AsistaCore.Parameters?) throws -> Foundation.URLRequest
+}
+extension NSNotification.Name {
+  public struct Task {
+    public static var DidResume: Foundation.Notification.Name
+    public static var DidSuspend: Foundation.Notification.Name
+    public static var DidCancel: Foundation.Notification.Name
+    public static var DidComplete: Foundation.Notification.Name
+  }
+}
+extension Notification {
+  public struct Key {
+    public static var Task: Swift.String
+    public static var ResponseData: Swift.String
+  }
+}
+final public class RegisterUser {
+  final public var firstName: Swift.String?
+  final public var lastName: Swift.String?
+  final public var email: Swift.String?
+  final public var userId: Swift.String?
+  final public var phone: Swift.String?
+  public init()
+  @objc deinit
+}
+public struct KBContent : Swift.Codable {
+  public let content: Swift.String
+  public let attachment: [Swift.String]
+  public let modified: Swift.Int
+  public let created: Swift.Int
+  public let id: Swift.Int
+  public let subject: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public protocol DataResponseSerializerProtocol {
+  associatedtype SerializedObject
+  var serializeResponse: (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.Data?, Swift.Error?) -> AsistaCore.Result<Self.SerializedObject> { get }
+}
+public struct DataResponseSerializer<Value> : AsistaCore.DataResponseSerializerProtocol {
+  public typealias SerializedObject = Value
+  public var serializeResponse: (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.Data?, Swift.Error?) -> AsistaCore.Result<Value>
+  public init(serializeResponse: @escaping (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.Data?, Swift.Error?) -> AsistaCore.Result<Value>)
+}
+public protocol DownloadResponseSerializerProtocol {
+  associatedtype SerializedObject
+  var serializeResponse: (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.URL?, Swift.Error?) -> AsistaCore.Result<Self.SerializedObject> { get }
+}
+public struct DownloadResponseSerializer<Value> : AsistaCore.DownloadResponseSerializerProtocol {
+  public typealias SerializedObject = Value
+  public var serializeResponse: (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.URL?, Swift.Error?) -> AsistaCore.Result<Value>
+  public init(serializeResponse: @escaping (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.URL?, Swift.Error?) -> AsistaCore.Result<Value>)
+}
+extension DataRequest {
+  @discardableResult
+  public func response(queue: Dispatch.DispatchQueue? = nil, completionHandler: @escaping (AsistaCore.DefaultDataResponse) -> Swift.Void) -> Self
+  @discardableResult
+  public func response<T>(queue: Dispatch.DispatchQueue? = nil, responseSerializer: T, completionHandler: @escaping (AsistaCore.DataResponse<T.SerializedObject>) -> Swift.Void) -> Self where T : AsistaCore.DataResponseSerializerProtocol
+}
+extension DownloadRequest {
+  @discardableResult
+  public func response(queue: Dispatch.DispatchQueue? = nil, completionHandler: @escaping (AsistaCore.DefaultDownloadResponse) -> Swift.Void) -> Self
+  @discardableResult
+  public func response<T>(queue: Dispatch.DispatchQueue? = nil, responseSerializer: T, completionHandler: @escaping (AsistaCore.DownloadResponse<T.SerializedObject>) -> Swift.Void) -> Self where T : AsistaCore.DownloadResponseSerializerProtocol
+}
+extension Request {
+  public static func serializeResponseData(response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?) -> AsistaCore.Result<Foundation.Data>
+}
+extension DataRequest {
+  public static func dataResponseSerializer() -> AsistaCore.DataResponseSerializer<Foundation.Data>
+  @discardableResult
+  public func responseData(queue: Dispatch.DispatchQueue? = nil, completionHandler: @escaping (AsistaCore.DataResponse<Foundation.Data>) -> Swift.Void) -> Self
+}
+extension DownloadRequest {
+  public static func dataResponseSerializer() -> AsistaCore.DownloadResponseSerializer<Foundation.Data>
+  @discardableResult
+  public func responseData(queue: Dispatch.DispatchQueue? = nil, completionHandler: @escaping (AsistaCore.DownloadResponse<Foundation.Data>) -> Swift.Void) -> Self
+}
+extension Request {
+  public static func serializeResponseString(encoding: Swift.String.Encoding?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?) -> AsistaCore.Result<Swift.String>
+}
+extension DataRequest {
+  public static func stringResponseSerializer(encoding: Swift.String.Encoding? = nil) -> AsistaCore.DataResponseSerializer<Swift.String>
+  @discardableResult
+  public func responseString(queue: Dispatch.DispatchQueue? = nil, encoding: Swift.String.Encoding? = nil, completionHandler: @escaping (AsistaCore.DataResponse<Swift.String>) -> Swift.Void) -> Self
+}
+extension DownloadRequest {
+  public static func stringResponseSerializer(encoding: Swift.String.Encoding? = nil) -> AsistaCore.DownloadResponseSerializer<Swift.String>
+  @discardableResult
+  public func responseString(queue: Dispatch.DispatchQueue? = nil, encoding: Swift.String.Encoding? = nil, completionHandler: @escaping (AsistaCore.DownloadResponse<Swift.String>) -> Swift.Void) -> Self
+}
+extension Request {
+  public static func serializeResponseJSON(options: Foundation.JSONSerialization.ReadingOptions, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?) -> AsistaCore.Result<Any>
+}
+extension DataRequest {
+  public static func jsonResponseSerializer(options: Foundation.JSONSerialization.ReadingOptions = .allowFragments) -> AsistaCore.DataResponseSerializer<Any>
+  @discardableResult
+  public func responseJSON(queue: Dispatch.DispatchQueue? = nil, options: Foundation.JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (AsistaCore.DataResponse<Any>) -> Swift.Void) -> Self
+}
+extension DownloadRequest {
+  public static func jsonResponseSerializer(options: Foundation.JSONSerialization.ReadingOptions = .allowFragments) -> AsistaCore.DownloadResponseSerializer<Any>
+  @discardableResult
+  public func responseJSON(queue: Dispatch.DispatchQueue? = nil, options: Foundation.JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (AsistaCore.DownloadResponse<Any>) -> Swift.Void) -> Self
+}
+extension Request {
+  public static func serializeResponsePropertyList(options: Foundation.PropertyListSerialization.ReadOptions, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?) -> AsistaCore.Result<Any>
+}
+extension DataRequest {
+  public static func propertyListResponseSerializer(options: Foundation.PropertyListSerialization.ReadOptions = []) -> AsistaCore.DataResponseSerializer<Any>
+  @discardableResult
+  public func responsePropertyList(queue: Dispatch.DispatchQueue? = nil, options: Foundation.PropertyListSerialization.ReadOptions = [], completionHandler: @escaping (AsistaCore.DataResponse<Any>) -> Swift.Void) -> Self
+}
+extension DownloadRequest {
+  public static func propertyListResponseSerializer(options: Foundation.PropertyListSerialization.ReadOptions = []) -> AsistaCore.DownloadResponseSerializer<Any>
+  @discardableResult
+  public func responsePropertyList(queue: Dispatch.DispatchQueue? = nil, options: Foundation.PropertyListSerialization.ReadOptions = [], completionHandler: @escaping (AsistaCore.DownloadResponse<Any>) -> Swift.Void) -> Self
+}
+public struct Theme : Swift.Codable, Swift.Equatable {
+  public let name: Swift.String?
+  public let id: Swift.Int
+  public let isAnonymous: Swift.Bool?
+  public let passwordRegex: Swift.String?
+  public let logo: Swift.String?
+  public let rc: Swift.Bool?
+  public let emailRegex: Swift.String?
+  public let colour: Swift.String?
+  public let displayTitle: Swift.Bool?
+  public let isPickTicket: Swift.Bool?
+  public let clientLocationFilter: Swift.Bool?
+  public let signUp: Swift.Bool?
+  public let footerOnOff: Swift.Bool?
+  public let rcTabName: Swift.String?
+  public let searchTitle: Swift.String?
+  public let passwordPolicy: Swift.String?
+  public let captcha: Swift.Bool?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func == (a: AsistaCore.Theme, b: AsistaCore.Theme) -> Swift.Bool
+}
+public class StateService {
+  public func fetchStateList(completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.State], AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchWorkflowStates(requestId: Swift.Int, completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.State], AsistaCore.AsistaError>) -> Swift.Void)
+  public func updateTicketState(parameters: Swift.Dictionary<Swift.String, Any>, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.MsgResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  @objc deinit
+}
+public struct ProfileResponse : Swift.Codable {
+  public let firstName: Swift.String?
+  public let lastName: Swift.String?
+  public let langauageID: Swift.Int?
+  public let phone: Swift.String?
+  public let notificationEmail: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct Priority : Swift.Codable, Swift.Equatable {
+  public let priorityID: Swift.Int
+  public let priorityState: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static func == (a: AsistaCore.Priority, b: AsistaCore.Priority) -> Swift.Bool
+}
+public enum AsistaError : Swift.Error {
+  case unacceptableStatusCode(Swift.Int)
+  case invalidPassword(Swift.Int)
+  case userNotRegistered(Swift.Int)
+  case userSuspended(Swift.Int)
+  case userNotExist(Swift.Int)
+  case userNotVerified(Swift.Int)
+  case changePassword(Swift.Int)
+  case resetPassword(Swift.Int)
+  case unexpectedResponse(Any)
+  case invalidAuthCredentials(Any)
+  case invalidData(Any)
+  case nullDataFound(Any)
+  case nullResponse(Any)
+  case noNetworkReachability
+  case serverNotAccessible(Any)
+  case serviceUnavailable(Any)
+  case tokenExpired(Any)
+}
+extension AsistaError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public enum AFError : Swift.Error {
+  public enum ParameterEncodingFailureReason {
+    case missingURL
+    case jsonEncodingFailed(error: Swift.Error)
+    case propertyListEncodingFailed(error: Swift.Error)
+  }
+  public enum MultipartEncodingFailureReason {
+    case bodyPartURLInvalid(url: Foundation.URL)
+    case bodyPartFilenameInvalid(in: Foundation.URL)
+    case bodyPartFileNotReachable(at: Foundation.URL)
+    case bodyPartFileNotReachableWithError(atURL: Foundation.URL, error: Swift.Error)
+    case bodyPartFileIsDirectory(at: Foundation.URL)
+    case bodyPartFileSizeNotAvailable(at: Foundation.URL)
+    case bodyPartFileSizeQueryFailedWithError(forURL: Foundation.URL, error: Swift.Error)
+    case bodyPartInputStreamCreationFailed(for: Foundation.URL)
+    case outputStreamCreationFailed(for: Foundation.URL)
+    case outputStreamFileAlreadyExists(at: Foundation.URL)
+    case outputStreamURLInvalid(url: Foundation.URL)
+    case outputStreamWriteFailed(error: Swift.Error)
+    case inputStreamReadFailed(error: Swift.Error)
+  }
+  public enum ResponseValidationFailureReason {
+    case dataFileNil
+    case dataFileReadFailed(at: Foundation.URL)
+    case missingContentType(acceptableContentTypes: [Swift.String])
+    case unacceptableContentType(acceptableContentTypes: [Swift.String], responseContentType: Swift.String)
+    case unacceptableStatusCode(code: Swift.Int)
+  }
+  public enum ResponseSerializationFailureReason {
+    case inputDataNil
+    case inputDataNilOrZeroLength
+    case inputFileNil
+    case inputFileReadFailed(at: Foundation.URL)
+    case stringSerializationFailed(encoding: Swift.String.Encoding)
+    case jsonSerializationFailed(error: Swift.Error)
+    case propertyListSerializationFailed(error: Swift.Error)
+  }
+  case invalidURL(url: AsistaCore.URLConvertible)
+  case parameterEncodingFailed(reason: AsistaCore.AFError.ParameterEncodingFailureReason)
+  case multipartEncodingFailed(reason: AsistaCore.AFError.MultipartEncodingFailureReason)
+  case responseValidationFailed(reason: AsistaCore.AFError.ResponseValidationFailureReason)
+  case responseSerializationFailed(reason: AsistaCore.AFError.ResponseSerializationFailureReason)
+}
+extension AFError {
+  public var isInvalidURLError: Swift.Bool {
+    get
+  }
+  public var isParameterEncodingError: Swift.Bool {
+    get
+  }
+  public var isMultipartEncodingError: Swift.Bool {
+    get
+  }
+  public var isResponseValidationError: Swift.Bool {
+    get
+  }
+  public var isResponseSerializationError: Swift.Bool {
+    get
+  }
+}
+extension AFError {
+  public var urlConvertible: AsistaCore.URLConvertible? {
+    get
+  }
+  public var url: Foundation.URL? {
+    get
+  }
+  public var underlyingError: Swift.Error? {
+    get
+  }
+  public var acceptableContentTypes: [Swift.String]? {
+    get
+  }
+  public var responseContentType: Swift.String? {
+    get
+  }
+  public var responseCode: Swift.Int? {
+    get
+  }
+  public var failedStringEncoding: Swift.String.Encoding? {
+    get
+  }
+}
+extension AFError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public class AssetService {
+  public func fetchAssetCategories(completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.AssetCategory], AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchAssetTypes(categoryId: Swift.Int? = nil, completionHandler: @escaping (AsistaCore.ResultModel<[AsistaCore.AssetType], AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchAssetList(categoryId: Swift.Int? = nil, modelId: Swift.Int? = nil, from: Swift.Int? = 0, to: Swift.Int? = 20, query: Swift.String = "", completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.AssetList, AsistaCore.AsistaError>) -> Swift.Void)
+  public func fetchAssetDetails(assetId: Swift.Int, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.AssetDetail, AsistaCore.AsistaError>) -> Swift.Void)
+  @objc deinit
+}
+public class AuthService {
+  public func authenticate(userId: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<Swift.Bool, AsistaCore.AsistaError>) -> Swift.Void)
+  public func register(_ user: AsistaCore.RegisterUser, completionHandler: @escaping (AsistaCore.ResultModel<Swift.Bool, AsistaCore.AsistaError>) -> Swift.Void)
+  public func requestPasswordReset(email: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.PasswordResetResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  public func changePassword(oldPassword: Swift.String, newPassword: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.MsgResponse, AsistaCore.AsistaError>) -> Swift.Void)
+  public func resetPassword(otp: Swift.String, newPassword: Swift.String, tempId: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.ResponseMsg, AsistaCore.AsistaError>) -> Swift.Void)
+  public func signOut(completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  @objc deinit
+}
+open class SessionManager {
+  public enum MultipartFormDataEncodingResult {
+    case success(request: AsistaCore.UploadRequest, streamingFromDisk: Swift.Bool, streamFileURL: Foundation.URL?)
+    case failure(Swift.Error)
+  }
+  public static var `default`: AsistaCore.SessionManager
+  public static var defaultHTTPHeaders: AsistaCore.HTTPHeaders
+  public static var multipartFormDataEncodingMemoryThreshold: Swift.UInt64
+  final public let session: Foundation.URLSession
+  final public let delegate: AsistaCore.SessionDelegate
+  open var startRequestsImmediately: Swift.Bool
+  open var adapter: AsistaCore.RequestAdapter?
+  open var retrier: AsistaCore.RequestRetrier? {
+    get
+    set(newValue)
+  }
+  open var backgroundCompletionHandler: (() -> Swift.Void)?
+  public init(configuration: Foundation.URLSessionConfiguration = URLSessionConfiguration.default, delegate: AsistaCore.SessionDelegate = SessionDelegate(), serverTrustPolicyManager: AsistaCore.ServerTrustPolicyManager? = nil)
+  public init?(session: Foundation.URLSession, delegate: AsistaCore.SessionDelegate, serverTrustPolicyManager: AsistaCore.ServerTrustPolicyManager? = nil)
+  @objc deinit
+  @discardableResult
+  open func request(_ url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .get, parameters: AsistaCore.Parameters? = nil, encoding: AsistaCore.ParameterEncoding = URLEncoding.default, headers: AsistaCore.HTTPHeaders? = nil) -> AsistaCore.DataRequest
+  @discardableResult
+  open func request(_ urlRequest: AsistaCore.URLRequestConvertible) -> AsistaCore.DataRequest
+  @discardableResult
+  open func download(_ url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .get, parameters: AsistaCore.Parameters? = nil, encoding: AsistaCore.ParameterEncoding = URLEncoding.default, headers: AsistaCore.HTTPHeaders? = nil, to destination: AsistaCore.DownloadRequest.DownloadFileDestination? = nil) -> AsistaCore.DownloadRequest
+  @discardableResult
+  open func download(_ urlRequest: AsistaCore.URLRequestConvertible, to destination: AsistaCore.DownloadRequest.DownloadFileDestination? = nil) -> AsistaCore.DownloadRequest
+  @discardableResult
+  open func download(resumingWith resumeData: Foundation.Data, to destination: AsistaCore.DownloadRequest.DownloadFileDestination? = nil) -> AsistaCore.DownloadRequest
+  @discardableResult
+  open func upload(_ fileURL: Foundation.URL, to url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .post, headers: AsistaCore.HTTPHeaders? = nil) -> AsistaCore.UploadRequest
+  @discardableResult
+  open func upload(_ fileURL: Foundation.URL, with urlRequest: AsistaCore.URLRequestConvertible) -> AsistaCore.UploadRequest
+  @discardableResult
+  open func upload(_ data: Foundation.Data, to url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .post, headers: AsistaCore.HTTPHeaders? = nil) -> AsistaCore.UploadRequest
+  @discardableResult
+  open func upload(_ data: Foundation.Data, with urlRequest: AsistaCore.URLRequestConvertible) -> AsistaCore.UploadRequest
+  @discardableResult
+  open func upload(_ stream: Foundation.InputStream, to url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .post, headers: AsistaCore.HTTPHeaders? = nil) -> AsistaCore.UploadRequest
+  @discardableResult
+  open func upload(_ stream: Foundation.InputStream, with urlRequest: AsistaCore.URLRequestConvertible) -> AsistaCore.UploadRequest
+  open func upload(multipartFormData: @escaping (AsistaCore.MultipartFormData) -> Swift.Void, usingThreshold encodingMemoryThreshold: Swift.UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold, to url: AsistaCore.URLConvertible, method: AsistaCore.HTTPMethod = .post, headers: AsistaCore.HTTPHeaders? = nil, queue: Dispatch.DispatchQueue? = nil, encodingCompletion: ((AsistaCore.SessionManager.MultipartFormDataEncodingResult) -> Swift.Void)?)
+  open func upload(multipartFormData: @escaping (AsistaCore.MultipartFormData) -> Swift.Void, usingThreshold encodingMemoryThreshold: Swift.UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold, with urlRequest: AsistaCore.URLRequestConvertible, queue: Dispatch.DispatchQueue? = nil, encodingCompletion: ((AsistaCore.SessionManager.MultipartFormDataEncodingResult) -> Swift.Void)?)
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  @discardableResult
+  open func stream(withHostName hostName: Swift.String, port: Swift.Int) -> AsistaCore.StreamRequest
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  @discardableResult
+  open func stream(with netService: Foundation.NetService) -> AsistaCore.StreamRequest
+}

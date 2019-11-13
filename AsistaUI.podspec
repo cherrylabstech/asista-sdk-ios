@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = 'AsistaUI'
-  spec.version      = '1.0.03'
+  spec.version      = '1.0.04'
   spec.summary      = 'An official Asista UI SDK in swift to access asista platform features instantly without deeper coding.'
 
   spec.description      = <<-DESC
@@ -29,7 +29,7 @@ Pod::Spec.new do |spec|
   spec.ios.resource_bundle = { 'AsistaUI' => "asista-sdk-ios-#{spec.version}/AsistaSupport/AsistaUI.framework/*.png" }
 
   spec.dependency 'AsistaCore'
-  spec.dependency 'Eureka'
+  spec.dependency 'Eureka', '5.0.0'
   spec.dependency 'SwiftMessages'
   spec.dependency 'Kingfisher'
   spec.dependency 'IHProgressHUD'

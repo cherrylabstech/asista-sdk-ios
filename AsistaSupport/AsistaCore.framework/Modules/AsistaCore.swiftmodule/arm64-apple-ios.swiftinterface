@@ -217,7 +217,7 @@ public class AsistaCore {
   public static var attachmentTypes: [Swift.String] {
     get
   }
-  public static func initialize(tenantUrl: Swift.String? = nil, appKey: Swift.String? = nil, appSecret: Swift.String? = nil)
+  public static func initialize(tenantURL: Swift.String? = nil, appKey: Swift.String? = nil, appSecret: Swift.String? = nil)
   public static func getInstance() throws -> AsistaCore.AsistaApiClient
   @objc deinit
 }
@@ -466,7 +466,7 @@ extension DownloadResponse {
 }
 public struct AssetCategory : Swift.Codable {
   public let id: Swift.Int
-  public let categoryName: Swift.String
+  public let categoryName: Swift.String?
   public func encode(to encoder: Swift.Encoder) throws
   public init(from decoder: Swift.Decoder) throws
 }
@@ -522,6 +522,7 @@ public struct AssetCount : Swift.Codable {
 }
 public class AttachmentService {
   public func fetchAttachmentProperties(completionHandler: @escaping (AsistaCore.ResultModel<AsistaCore.AttachmentProperties, AsistaCore.AsistaError>) -> Swift.Void)
+  @available(*, deprecated, message: "No longer available ...")
   public func fetchImage(url: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<Foundation.Data, AsistaCore.AsistaError>) -> Swift.Void)
   public func downloadFile(fileUrl: Swift.String, completionHandler: @escaping (AsistaCore.ResultModel<Foundation.URL, AsistaCore.AsistaError>) -> Swift.Void)
   @objc deinit
@@ -849,7 +850,11 @@ public struct ResponseMsg : Swift.Codable {
 }
 public struct UploadResponse : Swift.Codable {
   public let id: Swift.Int
-  public let url: Swift.String?
+  public let size: Swift.Int?
+  public let fileName: Swift.String?
+  public let contentType: Swift.String?
+  public let uploadUrl: Swift.String?
+  public let thumbnailUrl: Swift.String?
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
@@ -1210,7 +1215,7 @@ final public class RegisterUser {
 }
 public struct KBContent : Swift.Codable {
   public let content: Swift.String
-  public let attachment: [Swift.String]
+  public let attachment: [AsistaCore.Attachment]
   public let modified: Swift.Int
   public let created: Swift.Int
   public let id: Swift.Int
